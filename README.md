@@ -1,4 +1,4 @@
-# MY-LIB
+# MY-PY-LIB
 
 A collection of simple, reusable Python utility functions for input handling and console output. Designed for beginner developers and anyone who wants to avoid rewriting common input and display logic. This library is open source and intended for public use.
 
