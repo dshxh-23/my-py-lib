@@ -1,27 +1,29 @@
-import time
-import random
+"""
+Utility functions for my_py_lib.
 
-def print_ellipsis(s: str = "", n: int = 3, delay: float = 0.8) -> None:
+Contains:
+    chk_pwd
+"""
+
+from my_py_lib.getters import get_pwd
+
+def chk_pwd(pwd: str, prompt: str = "Password: ", attempts: int = 2) -> bool:
     """
-    Prints a string followed by a specified number of periods (ellipsis), 
-    printing each period at a specified interval.
-    
+    Prompt the user to enter a password and check it against the provided password.
+
     Args:
-        s (str): The string to print before the ellipsis.
-        n (int): Number of periods to print. If 0, a random number (3-8) is used.
-                 Must be between 1 and 99 (inclusive), or 0 for random.
-        delay (float): Time in seconds to wait between printing each period. Default is 0.8 seconds.
-    Raises:
-        ValueError: If n is not 0 or not in the range 1-99.
-    """
-    
-    if n == 0:
-        n = random.randint(3, 8)
-    if not (1 <= n < 100):
-        raise ValueError("n should be between 1 - 99, or 0 for random.")
+        pwd (str): The password to check against.
+        prompt (str): The prompt to display to the user. Default is "Password: ".
+        attempts (int): Number of allowed attempts. Default is 2.
 
-    print(s, end="", flush=True)
-    for i in range(n):
-        print(".", end="", flush=True)
-        time.sleep(delay)
-    print()  # Move to next line after ellipsis
+    Returns:
+        bool: True if the user enters the correct password within the allowed attempts, False otherwise.
+    """
+    if attempts < 1:
+        raise ValueError("Number of attempts must be at least 1.")
+    for i in range(attempts):
+        u_pwd = get_pwd(prompt)
+        if u_pwd == pwd:
+            return True
+        print(f"Wrong password. Attempts remaining: {attempts-(i+1)}")
+    return False
